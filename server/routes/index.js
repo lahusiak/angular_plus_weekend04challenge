@@ -3,20 +3,26 @@ var router = express.Router();
 var path = require('path');
 
 var pg = require('pg');
-//var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/message_board';
-var connectionString = process.env.DATABASE_URL + "?ssl=true" || 'postgres://localhost:5432/message_board';
 
-router.post('/data', function(req,res) {
+//var connectionString = 'postgres://localhost:5432/message_board';
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/message_board';
+//var connectionString = process.env.DATABASE_URL + "?ssl=true" || 'postgres://localhost:5432/message_board';
+
+router.post('/people', function(req,res) {
     //pull data off the request
     //console.log(req.body.userName);
 
     var addedUser = {
-            "name": req.body.userName,
-            "message": req.body.newMessage
+            "name": req.body.name,
+            "message": req.body.message
         };
+    console.log("this is addedUser", addedUser);
 
-    pg.connect(connectionString, function (err, client){
+    pg.connect(connectionString, function (err, client, done){
         //SQL Query Insert Data
+
+        console.log(client);
+
         client.query("INSERT INTO message_board (name, message) VALUES ($1, $2) RETURNING id",
         [addedUser.name, addedUser.message],
             function(err, result){
@@ -26,12 +32,12 @@ router.post('/data', function(req,res) {
             }
 
             res.send(true);
-        })
-    })
+        });
+    });
 
 });
 
-router.get('/data', function(req,res){
+router.get('/people', function(req,res){
     var results = [];
 
     //SQL Query > SELECT data from table

@@ -12,14 +12,14 @@ module.exports = function(grunt){
             }
         },
         copy: {
-            jquery: {
+            angular: {
                 expand: true,
-                cwd: "node_modules/jquery/dist/",
+                cwd: "node_modules/angular/",
                 src: [
-                    "jquery.min.js",
-                    "jquery.min.map"
+                    "angular.min.js",
+                    "angular.min.js.map"
                 ],
-                dest: "server/public/vendors"
+                dest: "server/public/vendors/"
             },
             bootstrap: {
                 expand: true,

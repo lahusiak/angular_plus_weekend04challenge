@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="vendors/bootstrap.min.css">
     <link rel="stylesheet" href="assets/styles/style.css">
 
-    <script type="text/javascript" src="vendors/jquery.min.js"></script>
+    <script type="text/javascript" src="vendors/angular.min.js"></script>
     <script type="text/javascript" src="assets/scripts/app.min.js"></script>
 
     <title>Message Board</title>
 </head>
 <body>
-    <form id = "entryForm">
-        <div class = "form-group">
-            <label for="userName">Name: </label>
-            <input type="text" id="userName" name="userName" placeholder="Enter Name: ">
-        </div>
-        <div class = "form-group">
-            <label for ="newMessage">Message: </label>
-            <textarea id = "newMessage" name="newMessage" cols="60" rows="5" placeholder="Enter your message..."></textarea>
-            <!--<input type="text" id="newMessage" name="newMessage" maxlength="1000" placeholder="Enter your message...">-->
-        </div>
-            <button id="submit" class="btn btn-info">Submit</button>
-    </form>
+    <div class="container" ng-controller="WelcomeController">
+        <!--<form id="entryForm">-->
+                <div class="form-group">
+                    <label for="userName">Name: </label>
+                    <input ng-model="note.name" type="text" id="userName" name="userName" placeholder="Enter Name: ">
+                </div>
+                <div class="form-group">
+                    <!--<label for ="newMessage">Message: </label>-->
+                    <textarea ng-model="note.message" id="newMessage" name="newMessage" cols="60" rows="5" placeholder="Enter your message..."></textarea>
+                    <!--<input type="text" id="newMessage" name="newMessage" maxlength="1000" placeholder="Enter your message...">-->
+                </div>
+        <!--</form>-->
+        <button ng-click="clickButton(note)" id="submit" class="btn btn-info">Submit</button>
 
-<div id="messageContainer">
-</div>
-
+    <div ng-repeat="people in nameArray">
+        <div class="col-md-10 well">
+            <p class="lead">{{people.name}}</p>
+            <p>{{people.message}}</p>
+        </div>
+    </div>
+    </div>
 </body>
 </html>
